@@ -9,38 +9,178 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRoadmapRouteImport } from './routes/app.roadmap'
+import { Route as AppResumeRouteImport } from './routes/app.resume'
+import { Route as AppMockRouteImport } from './routes/app.mock'
+import { Route as AppGeneratorRouteImport } from './routes/app.generator'
+import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
+import { Route as AppCompaniesRouteImport } from './routes/app.companies'
+import { Route as AppCodingRouteImport } from './routes/app.coding'
+import { Route as AppMockThreadIdRouteImport } from './routes/app.mock.$threadId'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRoadmapRoute = AppRoadmapRouteImport.update({
+  id: '/roadmap',
+  path: '/roadmap',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppResumeRoute = AppResumeRouteImport.update({
+  id: '/resume',
+  path: '/resume',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMockRoute = AppMockRouteImport.update({
+  id: '/mock',
+  path: '/mock',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppGeneratorRoute = AppGeneratorRouteImport.update({
+  id: '/generator',
+  path: '/generator',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCompaniesRoute = AppCompaniesRouteImport.update({
+  id: '/companies',
+  path: '/companies',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCodingRoute = AppCodingRouteImport.update({
+  id: '/coding',
+  path: '/coding',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMockThreadIdRoute = AppMockThreadIdRouteImport.update({
+  id: '/$threadId',
+  path: '/$threadId',
+  getParentRoute: () => AppMockRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/app/coding': typeof AppCodingRoute
+  '/app/companies': typeof AppCompaniesRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/generator': typeof AppGeneratorRoute
+  '/app/mock': typeof AppMockRouteWithChildren
+  '/app/resume': typeof AppResumeRoute
+  '/app/roadmap': typeof AppRoadmapRoute
+  '/app/mock/$threadId': typeof AppMockThreadIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/app/coding': typeof AppCodingRoute
+  '/app/companies': typeof AppCompaniesRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/generator': typeof AppGeneratorRoute
+  '/app/mock': typeof AppMockRouteWithChildren
+  '/app/resume': typeof AppResumeRoute
+  '/app/roadmap': typeof AppRoadmapRoute
+  '/app/mock/$threadId': typeof AppMockThreadIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/app/coding': typeof AppCodingRoute
+  '/app/companies': typeof AppCompaniesRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/generator': typeof AppGeneratorRoute
+  '/app/mock': typeof AppMockRouteWithChildren
+  '/app/resume': typeof AppResumeRoute
+  '/app/roadmap': typeof AppRoadmapRoute
+  '/app/mock/$threadId': typeof AppMockThreadIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/coding'
+    | '/app/companies'
+    | '/app/dashboard'
+    | '/app/generator'
+    | '/app/mock'
+    | '/app/resume'
+    | '/app/roadmap'
+    | '/app/mock/$threadId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/coding'
+    | '/app/companies'
+    | '/app/dashboard'
+    | '/app/generator'
+    | '/app/mock'
+    | '/app/resume'
+    | '/app/roadmap'
+    | '/app/mock/$threadId'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/coding'
+    | '/app/companies'
+    | '/app/dashboard'
+    | '/app/generator'
+    | '/app/mock'
+    | '/app/resume'
+    | '/app/roadmap'
+    | '/app/mock/$threadId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +188,103 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/roadmap': {
+      id: '/app/roadmap'
+      path: '/roadmap'
+      fullPath: '/app/roadmap'
+      preLoaderRoute: typeof AppRoadmapRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/resume': {
+      id: '/app/resume'
+      path: '/resume'
+      fullPath: '/app/resume'
+      preLoaderRoute: typeof AppResumeRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/mock': {
+      id: '/app/mock'
+      path: '/mock'
+      fullPath: '/app/mock'
+      preLoaderRoute: typeof AppMockRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/generator': {
+      id: '/app/generator'
+      path: '/generator'
+      fullPath: '/app/generator'
+      preLoaderRoute: typeof AppGeneratorRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/dashboard': {
+      id: '/app/dashboard'
+      path: '/dashboard'
+      fullPath: '/app/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/companies': {
+      id: '/app/companies'
+      path: '/companies'
+      fullPath: '/app/companies'
+      preLoaderRoute: typeof AppCompaniesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/coding': {
+      id: '/app/coding'
+      path: '/coding'
+      fullPath: '/app/coding'
+      preLoaderRoute: typeof AppCodingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/mock/$threadId': {
+      id: '/app/mock/$threadId'
+      path: '/$threadId'
+      fullPath: '/app/mock/$threadId'
+      preLoaderRoute: typeof AppMockThreadIdRouteImport
+      parentRoute: typeof AppMockRoute
+    }
   }
 }
 
+interface AppMockRouteChildren {
+  AppMockThreadIdRoute: typeof AppMockThreadIdRoute
+}
+
+const AppMockRouteChildren: AppMockRouteChildren = {
+  AppMockThreadIdRoute: AppMockThreadIdRoute,
+}
+
+const AppMockRouteWithChildren =
+  AppMockRoute._addFileChildren(AppMockRouteChildren)
+
+interface AppRouteChildren {
+  AppCodingRoute: typeof AppCodingRoute
+  AppCompaniesRoute: typeof AppCompaniesRoute
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppGeneratorRoute: typeof AppGeneratorRoute
+  AppMockRoute: typeof AppMockRouteWithChildren
+  AppResumeRoute: typeof AppResumeRoute
+  AppRoadmapRoute: typeof AppRoadmapRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppCodingRoute: AppCodingRoute,
+  AppCompaniesRoute: AppCompaniesRoute,
+  AppDashboardRoute: AppDashboardRoute,
+  AppGeneratorRoute: AppGeneratorRoute,
+  AppMockRoute: AppMockRouteWithChildren,
+  AppResumeRoute: AppResumeRoute,
+  AppRoadmapRoute: AppRoadmapRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
